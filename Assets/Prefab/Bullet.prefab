@@ -157,6 +157,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   killEnemy: {fileID: 8300000, guid: 7cc23e4fa005d5d4594b135ef4239b15, type: 3}
   moveSpeed: 15
+  EnemyTag: Enemy
+  lifeTime: 1
 --- !u!61 &7913131476310198440
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -6,10 +6,12 @@ public class MoveTrail : MonoBehaviour
 {
     public AudioClip killEnemy;
     public int moveSpeed = 170;
+    public string EnemyTag = "Enemy";
+    public float lifeTime = 1f;
     void Update()
     {
         transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, lifeTime);
     }
 
     public void OnBecameInvisible()
@@ -19,14 +21,27 @@ public class MoveTrail : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        //Ignore the door
-        if (collision.tag.Equals("Door") || collision.tag.Equals("Shootable") || collision.tag.Equals("Ghost") || collision.tag.Equals("Light")) { return; }
         //Spawn hit particle
 
         //Kill Enemy
-        if (collision.gameObject.tag.Equals("Enemy"))
+        if (collision.gameObject.tag.Equals(EnemyTag))
         {
-            Destroy(collision.gameObject);
+            if (EnemyTag != "Player")
+            {
+                if(collision.gameObject.GetComponent<AudioSource>() != null)
+                {
+                    collision.gameObject.GetComponent<AudioSource>().PlayOneShot(killEnemy);
+                }
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                //Damage Player
+                if (collision.gameObject.GetComponent<PlayerController>() != null)
+                {
+                    collision.gameObject.GetComponent<PlayerController>().damagePlayer(1, false);
+                }
+            }
         }
         //Despawn
         Destroy(this.gameObject);
