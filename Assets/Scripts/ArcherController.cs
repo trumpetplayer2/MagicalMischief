@@ -27,23 +27,30 @@ public class ArcherController : GenericEnemy
             if (nextUpdate <= Time.time)
             {
                 chargeTime -= 1;
+                nextUpdate = Time.time + 1;
             }
             return;
         }
         //Head up when no target. We will be setting target to null after shooting an arrow
         if (target == null)
         {
-            transform.TransformVector(Vector3.up);
+            transform.forward = Vector3.forward;
+            transform.rotation = (Quaternion.Euler(0, 0, 90));
+            transform.Translate(Vector3.right * speed * Time.deltaTime);
             return;
         }
-        transform.rotation = Quaternion.FromToRotation(transform.position, target.position);
+        Vector3 diff = target.position - transform.position;
+        diff.Normalize();
+
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
         //Shoot
         Instantiate(arrow, aim.position, transform.rotation);
         if(King == null)
         {
             target = null;
         }
-        chargeTime = 5;
+        chargeTime = 2;
     }
     void OnTriggerEnter2D(Collider2D collision)
     {

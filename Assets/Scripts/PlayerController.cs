@@ -24,10 +24,11 @@ public class PlayerController : MonoBehaviour
     public Color defaultColor;
     public Color flashColor;
     public Color transparentColor;
-    private int timeBetweenFlash = 10;
+    private int timeBetweenFlash = 1;
     private int timeSinceLastFlash = 0;
-    public float iframes = 3;
+    public float iframes = 0;
     public int health = 3;
+    public ManaBar mana;
 
     //public ParticleSystem muzzleFlash;
 
@@ -88,16 +89,15 @@ public class PlayerController : MonoBehaviour
         mousePos.y = mousePos.y - gunPos.y;
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         pistolPivot.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         if (angle > 90 || angle <= -90)
         {
             gun.flipY = true;
-            colorFlash.flipX = true;
             pistolBarrel.localPosition = new Vector3(0.06f, -0.02f, 0f);
         }
         else
         {
             gun.flipY = false;
-            colorFlash.flipX = false;
             pistolBarrel.localPosition = new Vector3(0.06f, 0.02f, 0f);
         }
 
@@ -135,6 +135,11 @@ public class PlayerController : MonoBehaviour
 
     private void shootGun()
     {
+        if (Time.timeScale == 0) { return; }
+        if (!mana.GetMana().TrySpendMana(20))
+        {
+            return;
+        }
         //Vector3 mousePos = Input.mousePosition;
         //Vector3 gunPos = Camera.main.WorldToScreenPoint(transform.position);
         //mousePos.x = mousePos.x - gunPos.x;
@@ -153,7 +158,6 @@ public class PlayerController : MonoBehaviour
     private void effect()
     {
         if(Time.timeScale == 0) { return; }
-        if (shootSource.isPlaying) { return; }
        // muzzleFlash.time = 0;
        // muzzleFlash.Play();
         shootSource.PlayOneShot(shootSound);

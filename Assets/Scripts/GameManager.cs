@@ -9,8 +9,6 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public int levelID;
-    public double baseScore = 100;
-    private int sideID = 0;
     private float nextUpdate = 0f;
     public GameObject mainCamera;
     public static GameManager instance;
@@ -22,8 +20,8 @@ public class GameManager : MonoBehaviour
     public GameObject WinMenu;
     public GameObject DeathMenu;
     private bool isPaused = false;
-    public AudioSource Music;
-    public AudioClip VictoryJingle;
+    //public AudioSource Music;
+    //public AudioClip VictoryJingle;
     public PlayerController player;
     private bool isFinished = false;
 
@@ -99,7 +97,7 @@ public class GameManager : MonoBehaviour
             player.updateIFrames();
         }
 
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < health.Length; i++)
         {
             health[i].sprite = lostHealth;
         }
@@ -127,10 +125,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public int getSideID()
-    {
-        return sideID;
-    }
     public void Reset()
     {
         Time.timeScale = 1;

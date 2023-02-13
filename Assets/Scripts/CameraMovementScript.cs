@@ -25,7 +25,10 @@ public class CameraMovementScript : MonoBehaviour
         else
         {
             //End Level
-
+            if(transform.position.normalized == endLocations[currentPoint].position.normalized)
+            {
+                GameManager.instance.finishLevel();
+            }
         }
     }
 }
