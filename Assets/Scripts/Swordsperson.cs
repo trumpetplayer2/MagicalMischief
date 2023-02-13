@@ -11,6 +11,7 @@ public class Swordsperson : GenericEnemy
     void Start()
     {
         nextUpdate = Time.time + 1;
+        King = GameObject.FindGameObjectWithTag("King");
     }
 
     // Update is called once per frame

@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (instance == null && currentCooldown <= 0)
         {
-            instance = Instantiate(spawnedPrefab, transform.position, transform.rotation);
+            spawnEnemy();
             currentCooldown = cooldown;
             nextUpdate = Time.time + 1f;
         }
@@ -34,6 +34,14 @@ public class EnemySpawner : MonoBehaviour
                 currentCooldown -= 1;
                 nextUpdate = Time.time + 1f;
             }
+        }
+    }
+
+    public void spawnEnemy()
+    {
+        if (instance == null)
+        {
+            instance = Instantiate(spawnedPrefab, transform.position, transform.rotation);
         }
     }
 }

@@ -12,6 +12,7 @@ public class ArcherController : GenericEnemy
     void Start()
     {
         nextUpdate = Time.time + 1;
+        King = GameObject.FindGameObjectWithTag("King");
         GameObject temp = GameObject.FindGameObjectWithTag("Player");
         if (temp != null)
         {

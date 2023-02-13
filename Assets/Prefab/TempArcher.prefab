@@ -132,6 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chargeTime: 1
   speed: 3
+  soundObject: {fileID: 6836251699777111667, guid: ea68d01555ec0c5469efd881a5f9b9ad, type: 3}
   aim: {fileID: 5805152373064254305}
   arrow: {fileID: 8312048232074974866, guid: 858487ef4fd85284cb8f1a1f30876c60, type: 3}
 --- !u!60 &8253290590578851884

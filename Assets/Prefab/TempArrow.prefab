@@ -49,6 +49,9 @@ MonoBehaviour:
   killEnemy: {fileID: 0}
   moveSpeed: 10
   EnemyTag: Player
+  ignoreTags:
+  - Wall
+  - Enemy
   lifeTime: 3
 --- !u!61 &7288561721675900769
 BoxCollider2D:
